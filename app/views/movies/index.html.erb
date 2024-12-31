@@ -8,18 +8,27 @@
   <table> 
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Rating</th>
-        <th>Release Date</th>
+        <th class="<%= sort_class('title') %>">
+          <%= link_to 'Title', movies_path(sort: 'title', direction: toggle_direction('title')) %>
+          <%= sort_icon('title') %>
+        </th>
+        <th class="<%= sort_class('rating') %>">
+          <%= link_to 'Rating', movies_path(sort: 'rating', direction: toggle_direction('rating')) %>
+          <%= sort_icon('rating') %>
+        </th>
+        <th class="<%= sort_class('release_date') %>">
+          <%= link_to 'Release Date', movies_path(sort: 'release_date', direction: toggle_direction('release_date')) %>
+          <%= sort_icon('release_date') %>
+        </th>
         <th>More Info</th>
       </tr>
     </thead>
     <tbody>
       <% @movies.each do |movie| %>
         <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.rating %></td>
-          <td><%= movie.release_date %></td>
+          <td class="<%= sort_class('title') %>"><%= movie.title %></td>
+          <td class="<%= sort_class('rating') %>"><%= movie.rating %></td>
+          <td class="<%= sort_class('release_date') %>"><%= movie.release_date.strftime("%Y-%m-%d") %></td>
           <td>
             <%= link_to "Show this movie", movie %>
           </td>
@@ -30,10 +39,10 @@
 
     <tfoot>
       <tr>
-        <th>Total Movies: <%= @movies.count %></th>
+        <th colspan="4">Total Movies: <%= @movies.count %></th>
       </tr>
     </tfoot>
   </table>
 </div>
 
-<%= link_to "New movie", new_movie_path %>
+<%= link_to "New movie", new_movie_path, class:'nav-btn' %>

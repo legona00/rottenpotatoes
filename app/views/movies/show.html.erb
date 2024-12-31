@@ -1,10 +1,43 @@
 <p style="color: green"><%= notice %></p>
+<table>
+  <thead>
+  <tr>
+    <th>
+      <td>Title</td>
+    </th>
+    <th>
+      <td>Rating</td>
+    </th>
+    <th>
+      <td>Release</td>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <th>
+          <td><%= @movie.title %></td>
+        </th>
+        <th>
+          <td><%= @movie.rating %></td>
+        </th>
+        <th>
+          <td><%= @movie.release_date.strftime("%Y-%m-%d") %></td>
+        </th>
+      </tr>
+  </tbody>
+</table>
 
-<%= render @movie %>
+<div id="show-content">
+    <p>
+      <strong>Description:</strong>
+      <%= @movie.description %>
+    </p>
 
-<div>
-  <%= link_to "Edit this movie", edit_movie_path(@movie) %> |
-  <%= link_to "Back to movies", movies_path %>
+  <div class="show-actions">
+    <%= link_to "Edit this movie", edit_movie_path(@movie)%> 
+    <%= link_to "Back to movies", movies_path %>
 
-  <%= button_to "Destroy this movie", @movie, method: :delete %>
+    <%= button_to "Destroy this movie", @movie, method: :delete, class:"nav-btn"%>
+  </div>
 </div>

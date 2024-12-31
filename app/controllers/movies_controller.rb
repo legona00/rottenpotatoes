@@ -3,14 +3,20 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    session[:sort] = params[:sort] || session[:sort] || "title"
+    session[:direction] = params[:direction] || session[:direction] || "asc"
+
+    @sort_column = session[:sort]
+    @sort_direction = session[:direction]
+
+    @movies = Movie.order("#{@sort_column} #{@sort_direction}")
   end
 
   # GET /movies/1 or /movies/1.json
   def show
   end
 
-  # GET /movies/new
+  # GET /movies/new 
   def new
     @movie = Movie.new
   end
@@ -61,6 +67,9 @@ class MoviesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params.expect(:id))
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert]
+      redirect_to movies_path      
     end
 
     # Only allow a list of trusted parameters through.
